@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/reg_numbers.css">
+  </head>
+  <body>
+    <div class="container">
+        <div class="inner_container">
+            <div class="row">
+                <div class="box shadow">
+                    <h3>Registration Numbers</h3>
+
+                    <span class="regNotEntered"></span>
+                    <span class="regAlreadyExist"></span>
+                    <span class="unMatchPattern"></span>
+                    <span class="storageResert"></span>
+                    <span class="successfulMessage successfulColor"></span>
+
+                    <form id="registrationNumberForm" class="clearfix">
+                        <div class="error">
+                            {{messages.error}}
+                        </div>
+                        <span class="errorMessageOutput"></span>
+                        <input class="enteredReg" name="enteredReg" type="text" placeholder="CA 245852" value=""
+                            required />
+                        <button class="addBtn" name="add" type="submit">ADD</button>
+                        
+                        <button class="buttonReset" name="removeStorage" type="button">RESET</button>
+
+                        <div class="row clearfix">
+                            <h3>Filter by a town</h3>
+                            <div class="row townName">
+                                <label>Cape Town</label>
+                                <input type="radio" name="town" class="selectTown" value="CA">
+                            </div>
+                            <div class="row townName">
+                                <label>Malmesbury</label>
+                                <input type="radio" name="town" class="selectTown" value="CK">
+                            </div>
+                            <div class="row townName">
+                                <label>Stellenbosch</label>
+                                <input type="radio" name="town" class="selectTown" value="CL">
+                            </div>
+                            <div class="row">
+                                <button class="buttonShow" name="show" type="button">Show By Town</button>
+                                <button class="buttonShowAll" name="show-all" type="button">SHOW ALL</button>
+                                <ul id="selectedTownReg" class="clearfix printEachTown"></ul>
+                            </div>
+                            <ul class="printRegNumber">
+                                {{#each eachRegNo}}
+                                <li>{{this}}</li>
+                                {{/each}}  
+                            </ul>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+</html>

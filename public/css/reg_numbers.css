@@ -1,0 +1,78 @@
+body{
+    background-color: beige;
+    color: #1b8c90;
+}
+h3{
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+}
+form .enteredReg{
+    width: 100%;
+    border: 1px solid #1b8c90;
+    margin: 35px 0;
+
+}
+
+.inner_container{
+    margin: 50px 0;
+}
+
+.successfulColor{
+    color: green;
+}
+
+button{
+    border: 2px solid #1b8c90;
+}
+
+button:hover{
+    background-color: #1b8c90;
+    color: #fff;
+}
+
+.shadow {
+    -webkit-box-shadow: 3px 3px 5px 6px #1b8c90;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow:    3px 3px 5px 6px #1b8c90;  /* Firefox 3.5 - 3.6 */
+    box-shadow:         3px 3px 5px 6px #1b8c90;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+  }
+
+ul li{
+    display: inline-block;
+    border: 5px solid #211919;
+    background-color: yellow;
+    color: #443636;
+    font-weight: 600;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin: 10px 15px 0 0;
+}
+
+#registrationNumberForm .town{
+    float: left;
+    padding: 15px;
+    display: flex;
+}
+
+.townName{
+    float: left;
+    padding: 10px;
+    display: flex;
+}
+
+span{
+    color: red;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  /******style the form*****/
+  #registrationNumberForm{
+      margin: auto;
+      border: 5px solid;
+      padding: 15px;
+  }
