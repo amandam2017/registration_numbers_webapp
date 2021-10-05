@@ -1,17 +1,17 @@
-'use strict'
+'use strict';
 
-import flash from 'express-flash';
-import session from 'express-session';
-import express, { static } from 'express';
-import exphbs from 'express-handlebars';
-import { urlencoded, json } from 'body-parser';
+const flash = require('express-flash');
+const session = require('express-session');
+const express = require('express');
+const exphbs = require('express-handlebars');
+const bodyparser = require('body-parser');
 //require factory
-import reg from './reg_numbers';
+const reg = require('./reg_numbers');
 //require a routes file
-import Routes from './regnumbers_routes';
+const Routes = require('./regnumbers_routes');
 
-import { Pool as _Pool } from "pg";
-const Pool = _Pool;
+const pg = require("pg");
+const Pool = pg.Pool;
 
 //use for SSL connection
 let useSSL = false;
@@ -51,11 +51,11 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 //middlewere to make public folder visible
-app.use(static('public'));
+app.use(express.static('public'));
 
-app.use(urlencoded({extended: true}));
+app.use(bodyparser.urlencoded({extended: true}));
 
-app.use(json()); 
+app.use(bodyparser.json()); 
 
 //default route
 app.get('/', RoutesLogic.home);
