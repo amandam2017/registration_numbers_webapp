@@ -19,7 +19,7 @@
                     <span class="storageResert"></span>
                     <span class="successfulMessage successfulColor"></span>
 
-                    <form id="registrationNumberForm" class="clearfix">
+                    <form id="registrationNumberForm" action="/addRegnumber" method="POST" class="clearfix">
                         <div class="error">
                             {{messages.error}}
                         </div>
@@ -51,7 +51,7 @@
                             </div>
                             <ul class="printRegNumber">
                                 {{#each eachRegNo}}
-                                <li>{{this}}</li>
+                                <li>{{this.entered_regs}}</li>
                                 {{/each}}  
                             </ul>
                         </div>

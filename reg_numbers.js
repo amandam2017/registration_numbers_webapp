@@ -8,11 +8,11 @@ module.exports = function reg(pool) {
         if(regNum){
             var checkReg = await pool.query('SELECT entered_regs FROM regUsers WHERE entered_regs = $1', [regNum]);
             if(checkReg.rowCount === 0) {
-                const INSERT_QUERY = await pool.query('INSERT INTO regUsers (enetered_regs) values ($1)', [regNum]);
+                const INSERT_QUERY = await pool.query('INSERT INTO regUsers (entered_regs) values ($1)', [regNum]);
             }
         }
     }
-
+	let regNumberList = [];
 	// let localReg = '';
 	var pattern1 = /^((CA|CK|CL)\s([0-9]){6})$/;
 	var pattern3 = /^((CA|CK|CL)\s\d{3}\-\d{3})$/;
@@ -21,13 +21,13 @@ module.exports = function reg(pool) {
     async function setReg(plateNumber) {
 
 		await regqueries(plateNumber)
-
+ 
         plateNumber = plateNumber.toUpperCase();
 
-		if(!regNumberList.includes(plateNumber) && pattern1.test(plateNumber) || pattern2.test(plateNumber) || pattern3.test(plateNumber)) {
-			regNumberList.push(plateNumber)
-			return localReg = plateNumber
-		}
+		// if(!regNumberList.includes(plateNumber) && pattern1.test(plateNumber) || pattern2.test(plateNumber) || pattern3.test(plateNumber)) {
+		// 	regNumberList.push(plateNumber)
+		// 	return localReg = plateNumber
+		// }
 	}
 
 	async function getReg() {
@@ -36,6 +36,7 @@ module.exports = function reg(pool) {
 			return regNumberList.rows;
 			
 		} catch (error) {
+			console.log(error)
 			
 		}
 

@@ -7,7 +7,7 @@ module.exports = function Routes(RegFact){
     async function home(req, res){
         try {            
               res.render("index", {
-                eachRegNo: addedRegs,
+                eachRegNo: await RegFact.getReg(),
               });
           
             } catch (error) {
@@ -16,20 +16,23 @@ module.exports = function Routes(RegFact){
     }
 
     async function addReg(req, res){
-        console.log(await RegFact.setReg())
+        // console.log(await RegFact.getReg())
         try {
             var reg = req.body.enteredReg
 
             if(reg){
-                addedRegs = await RegFact.setReg({
-                    reg: req.body.enteredReg,
-                });
+                console.log(reg);
+                // addedRegs = await RegFact.getReg({
+                //     reg
+                // });
+                await RegFact.setReg(reg);
+                console.log('done adding')
             }
-
-            res.rediret('/');
+        console.log('before redirect');
+            res.redirect('/');
             
         } catch (error) {
-            
+            console.log(error)
         }
     }
 
