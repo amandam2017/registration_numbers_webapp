@@ -2,7 +2,7 @@
 
 module.exports = function Routes(RegFact){
 
-    let addedRegs = ''
+    // let addedRegs = ''
 
     async function home(req, res){
         try {            

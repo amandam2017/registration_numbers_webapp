@@ -4,13 +4,13 @@ module.exports = function reg(pool) {
 
     async function regqueries(regNum){
         //add charAt
-
-        if(regNum){
+        if(!regNum && pattern1.test(regNum) || pattern2.test(regNum) || pattern3.test(regNum)){
             var checkReg = await pool.query('SELECT entered_regs FROM regUsers WHERE entered_regs = $1', [regNum]);
             if(checkReg.rowCount === 0) {
                 const INSERT_QUERY = await pool.query('INSERT INTO regUsers (entered_regs) values ($1)', [regNum]);
             }
         }
+
     }
 	let regNumberList = [];
 	// let localReg = '';
