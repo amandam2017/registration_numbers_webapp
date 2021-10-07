@@ -6,7 +6,7 @@ module.exports = function reg(pool) {
 		var pattern1 = /^((CA|CK|CL)\s([0-9]){6})$/;
 		var pattern2 = /^((CA|CK|CL)\s\d{3}\s\d{3})$/;
 		var pattern3 = /^((CA|CK|CL)\s\d{3}\-\d{3})$/;
-        //add charAt
+        
         if(regNum && pattern1.test(regNum) || pattern2.test(regNum) || pattern3.test(regNum)){
             var checkReg = await pool.query('SELECT entered_regs FROM regUsers WHERE entered_regs = $1', [regNum]);
             if(checkReg.rowCount === 0) { //checking if entered reg does not exist and the add it
