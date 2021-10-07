@@ -2,8 +2,6 @@
 
 module.exports = function Routes(RegFact){
 
-    // let addedRegs = ''
-
     async function home(req, res){
         try {            
               res.render("index", {
@@ -16,15 +14,12 @@ module.exports = function Routes(RegFact){
     }
 
     async function addReg(req, res){
-        // console.log(await RegFact.getReg())
         try {
             var reg = req.body.enteredReg
 
             if(reg){
                 console.log(reg);
-                // addedRegs = await RegFact.getReg({
-                //     reg
-                // });
+           
                 await RegFact.setReg(reg);
                 console.log('done adding')
             }
@@ -36,9 +31,20 @@ module.exports = function Routes(RegFact){
         }
     }
 
+    async function clearDataBase(req, res) {
+        try {
+      
+          await RegFact.resert()
+      
+          res.redirect('/')
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
     return{
         home,
         addReg,
-
+        clearDataBase
     }
 }

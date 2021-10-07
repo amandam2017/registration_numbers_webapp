@@ -60,6 +60,8 @@ app.use(bodyparser.json());
 //default route
 app.get('/', RoutesLogic.home);
 app.post('/addRegnumber', RoutesLogic.addReg);
+app.get('/reset', RoutesLogic.clearDataBase);
+
 
 //make the port number to be configurable
 let PORT = process.env.PORT || 3021;
