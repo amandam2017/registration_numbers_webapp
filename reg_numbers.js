@@ -13,7 +13,7 @@ module.exports = function reg(pool) {
 			let substring = regNum.substring(0, 2)
 			console.log(substring);
             if(checkReg.rowCount === 0) { //checking if entered reg does not exist and the add it
-                const INSERT_QUERY = await pool.query('INSERT INTO registrations (entered_regs) values ($1)', [regNum]);
+                const INSERT_QUERY = await pool.query('INSERT INTO registrations (entered_regs, towns_id) VALUES ($1,$2)', [regNum, 1]);
             }
         }
 	}
