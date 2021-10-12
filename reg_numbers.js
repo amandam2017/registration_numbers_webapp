@@ -2,7 +2,7 @@
 
 module.exports = function reg(pool) {
 
-    async function regqueries(regNum){
+	const regqueries = async (regNum) => {
 		let pattern1 = /^((CA|CK|CL)\s([0-9]){6})$/;
 		let pattern2 = /^((CA|CK|CL)\s\d{3}\s\d{3})$/;
 		let pattern3 = /^((CA|CK|CL)\s\d{3}\-\d{3})$/;
@@ -11,18 +11,16 @@ module.exports = function reg(pool) {
             let checkReg = await pool.query('SELECT entered_regs FROM registrations WHERE entered_regs = $1', [regNum]);
 			//adding substringt=to look for the first 2 letter from a town
 			let substring = regNum.substring(0, 2)
-			console.log(substring)
+			console.log(substring);
             if(checkReg.rowCount === 0) { //checking if entered reg does not exist and the add it
                 const INSERT_QUERY = await pool.query('INSERT INTO registrations (entered_regs) values ($1)', [regNum]);
             }
         }
-
-    }
+	}
 
 	// let regNumberList = [];
 
-    async function setReg(plateNumber) {
-
+	const setReg = async (plateNumber) => {
 		await regqueries(plateNumber)
  
         plateNumber = plateNumber.toUpperCase();
@@ -59,14 +57,14 @@ module.exports = function reg(pool) {
 		}
 	}
 
-	async function resert(){
-        try {
+	const resert = async () => {
+		try {
             let clearData = await pool.query('DELETE FROM registrations');
             return clearData.row;
         } catch (error) {
             console.log(error)
         }
-    }
+	}
 
 
 
