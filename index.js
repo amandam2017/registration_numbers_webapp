@@ -11,6 +11,7 @@ const reg = require('./reg_numbers');
 const Routes = require('./regnumbers_routes');
 
 const pg = require("pg");
+const reg_numbers = require('./reg_numbers');
 const Pool = pg.Pool;
 
 //use for SSL connection
@@ -21,7 +22,7 @@ if (process.env.DATABASE_URL && !local){
 }
 
 //add connectionString connect to reg_numbers database
-const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/reg_numbers';
+const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/registration_numbers';
 
 const pool = new Pool({
     connectionString,
@@ -64,7 +65,7 @@ app.get('/reset', RoutesLogic.clearDataBase);
 
 
 //make the port number to be configurable
-let PORT = process.env.PORT || 3021;
+let PORT = process.env.PORT || 2021;
 
 app.listen(PORT, function () {
   console.log('App starting on port', PORT);

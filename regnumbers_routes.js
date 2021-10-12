@@ -42,9 +42,23 @@ module.exports = function Routes(RegFact){
         }
       }
 
+      const townRegistrations = async (req, res) => {
+        try {
+          res.render('enteredRegs',{
+            eachRegNo: await RegFact.regsFromTown(),
+
+          })
+          
+        } catch (error) {
+          console.log(error)
+          
+        }
+      }
+
     return{
         home,
         addReg,
-        clearDataBase
+        clearDataBase,
+        townRegistrations
     }
 }

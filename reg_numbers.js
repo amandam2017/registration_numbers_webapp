@@ -3,19 +3,23 @@
 module.exports = function reg(pool) {
 
     async function regqueries(regNum){
-		var pattern1 = /^((CA|CK|CL)\s([0-9]){6})$/;
-		var pattern2 = /^((CA|CK|CL)\s\d{3}\s\d{3})$/;
-		var pattern3 = /^((CA|CK|CL)\s\d{3}\-\d{3})$/;
+		let pattern1 = /^((CA|CK|CL)\s([0-9]){6})$/;
+		let pattern2 = /^((CA|CK|CL)\s\d{3}\s\d{3})$/;
+		let pattern3 = /^((CA|CK|CL)\s\d{3}\-\d{3})$/;
         
         if(regNum && pattern1.test(regNum) || pattern2.test(regNum) || pattern3.test(regNum)){
-            var checkReg = await pool.query('SELECT entered_regs FROM regUsers WHERE entered_regs = $1', [regNum]);
+            let checkReg = await pool.query('SELECT entered_regs FROM registrations WHERE entered_regs = $1', [regNum]);
+			//adding substringt=to look for the first 2 letter from a town
+			let substring = regNum.substring(0, 2)
+			console.log(substring)
             if(checkReg.rowCount === 0) { //checking if entered reg does not exist and the add it
-                const INSERT_QUERY = await pool.query('INSERT INTO regUsers (entered_regs) values ($1)', [regNum]);
+                const INSERT_QUERY = await pool.query('INSERT INTO registrations (entered_regs) values ($1)', [regNum]);
             }
         }
 
     }
-	let regNumberList = [];
+
+	// let regNumberList = [];
 
     async function setReg(plateNumber) {
 
@@ -26,7 +30,7 @@ module.exports = function reg(pool) {
 
 	const getReg = async () => {
 		try {
-			var regNumberList = await pool.query('SELECT entered_regs FROM regUsers')
+			let regNumberList = await pool.query('SELECT entered_regs FROM registrations')
 			return regNumberList.rows;
 			
 		} catch (error) {
@@ -37,10 +41,11 @@ module.exports = function reg(pool) {
 		return regNumberList;
 	  }
 
+
     async function addBtnErrors(plateNumber) {
-		var emptyFieldError = '*Please enter plate number*'
-		var alreadyExistRegError = '*Registration number already exist*'
-		var incorrectPatternError = '*Please enter reg from these towns in this format [CL 123452] OR [CK 123-321] OR [CL 012 658]*'
+		let emptyFieldError = '*Please enter plate number*'
+		let alreadyExistRegError = '*Registration number already exist*'
+		let incorrectPatternError = '*Please enter reg from these towns in this format [CL 123452] OR [CK 123-321] OR [CL 012 658]*'
 		if(plateNumber) {
 			if(pattern1.test(plateNumber) || pattern2.test(plateNumber) || pattern3.test(plateNumber)) {
 				if(regNumberList.includes(plateNumber)) {
@@ -56,7 +61,7 @@ module.exports = function reg(pool) {
 
 	async function resert(){
         try {
-            var clearData = await pool.query('DELETE FROM regUsers');
+            let clearData = await pool.query('DELETE FROM registrations');
             return clearData.row;
         } catch (error) {
             console.log(error)
