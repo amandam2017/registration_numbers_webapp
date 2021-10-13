@@ -55,6 +55,14 @@ module.exports = function reg(pool) {
 		return regNumberList;
 	  }
 
+	//   add filter function
+
+	const filter = async (eachTown) => {
+		var townStartsWith = await getId(eachTown);
+
+		// let townStartsWith = await pool.query('SELECT ')
+	}
+
 
     async function addBtnErrors(plateNumber) {
 		let emptyFieldError = '*Please enter plate number*'
