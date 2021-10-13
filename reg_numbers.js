@@ -3,6 +3,7 @@
 module.exports = function reg(pool) {
 
 	const regqueries = async (regNum) => {
+
 		let pattern1 = /^((CA|CK|CL)\s([0-9]){6})$/;
 		let pattern2 = /^((CA|CK|CL)\s\d{3}\s\d{3})$/;
 		let pattern3 = /^((CA|CK|CL)\s\d{3}\-\d{3})$/;
@@ -12,10 +13,25 @@ module.exports = function reg(pool) {
 			//adding substringt=to look for the first 2 letter from a town
 			let substring = regNum.substring(0, 2)
 			console.log(substring);
+			var idees = await getId(substring);
             if(checkReg.rowCount === 0) { //checking if entered reg does not exist and the add it
-                const INSERT_QUERY = await pool.query('INSERT INTO registrations (entered_regs, towns_id) VALUES ($1,$2)', [regNum, 1]);
+                const INSERT_QUERY = await pool.query('INSERT INTO registrations (entered_regs, towns_id) VALUES ($1,$2)', [regNum, idees]);
             }
         }
+	}
+
+	//create a function that generates ids 
+
+	async function getId(reg_id){
+		try {
+			// console.log(reg_id)
+			var selectID = await pool.query('SELECT id FROM towns WHERE string_starts_with = $1', [reg_id]);
+			return selectID.rows[0].id;
+			
+		} catch (error) {
+			console.log(error)
+			
+		}
 	}
 
 	// let regNumberList = [];
@@ -74,5 +90,6 @@ module.exports = function reg(pool) {
         getReg,
 		resert,
         addBtnErrors,
+		getId
     }
 }

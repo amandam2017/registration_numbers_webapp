@@ -76,3 +76,10 @@ span{
       border: 5px solid;
       padding: 15px;
   }
+
+  /* MEDIA QUERIES */
+  /* @media (min-width: 550px){
+      .btn-mobile-width{
+        width:100%;
+    }
+  } */

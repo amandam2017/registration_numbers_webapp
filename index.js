@@ -29,6 +29,10 @@ const pool = new Pool({
     ssl: {
         rejectUnauthorized: false
     }
+
+
+
+    
 });
 
 //instantiate app
