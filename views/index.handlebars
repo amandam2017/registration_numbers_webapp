@@ -37,6 +37,12 @@
                             {{/each}}  
                         </ul>
 
+                        <ul>
+                            {{#each townReg}}
+                            <li>{{this.entered_regs}}</li>
+                            {{/each}}  
+                        </ul>
+
                     </form>
 
                     <form action="/filterBy" method="POST">
@@ -62,11 +68,7 @@
                             
                         </div>
 
-                        <ul>
-                            {{#each eachRegNo}}
-                            <li>{{this.entered_regs}}</li>
-                            {{/each}}  
-                        </ul>
+                        
                     </form>
                     </div>
                 </div>
