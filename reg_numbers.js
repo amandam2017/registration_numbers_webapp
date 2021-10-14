@@ -20,10 +20,8 @@ module.exports = function reg(pool) {
         }
 	}
 
-	//create a function that generates ids 
-
-	async function getId(reg_id){
-		try {
+	const getId = async (reg_id) => {
+			try {
 			// console.log(reg_id)
 			var selectID = await pool.query('SELECT id FROM towns WHERE string_starts_with = $1', [reg_id]);
 			return selectID.rows[0].id;
@@ -34,12 +32,11 @@ module.exports = function reg(pool) {
 		}
 	}
 
-	// let regNumberList = [];
-
 	const setReg = async (plateNumber) => {
+        plateNumber = plateNumber.toUpperCase();
+
 		await regqueries(plateNumber)
  
-        plateNumber = plateNumber.toUpperCase();
 	}
 
 	const getReg = async () => {
@@ -55,12 +52,13 @@ module.exports = function reg(pool) {
 		return regNumberList;
 	  }
 
+
 	//   add filter function
-
-	const filter = async (eachTown) => {
-		var townStartsWith = await getId(eachTown);
-
-		// let townStartsWith = await pool.query('SELECT ')
+	const filter = async (towns) => {
+		let townStartsWith = await getId(towns)
+		let getReg = await pool.query('SELECT entered_regs FROM registrations WHERE towns_id = $1', [townStartsWith])
+		// console.log('getREg ' +await getReg.rows)
+		return getReg.rows;
 	}
 
 
@@ -90,14 +88,13 @@ module.exports = function reg(pool) {
         }
 	}
 
-
-
     return{
         regqueries,
         setReg,
         getReg,
 		resert,
         addBtnErrors,
-		getId
+		getId,
+		filter
     }
 }

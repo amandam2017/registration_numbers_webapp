@@ -22,11 +22,12 @@ form .enteredReg{
     color: green;
 }
 
-button{
+.button, button{
     border: 2px solid #1b8c90;
 }
 
-button:hover{
+
+.button:hover, button:hover{
     background-color: #1b8c90;
     color: #fff;
 }
@@ -73,13 +74,23 @@ span{
   /******style the form*****/
   #registrationNumberForm{
       margin: auto;
-      border: 5px solid;
+      /* border: 5px solid; */
       padding: 15px;
   }
 
-  /* MEDIA QUERIES */
-  /* @media (min-width: 550px){
-      .btn-mobile-width{
+  .forms-container{
+    /* margin: auto; */
+    border: 5px solid;
+    /* padding: 15px; */
+  }
+
+  .btn-mobile-width{
         width:100%;
+    }   
+
+  /* MEDIA QUERIES */
+  @media screen and (min-width: 600px){
+      .btn-mobile-width{
+        width: unset;
     }
-  } */
+  }

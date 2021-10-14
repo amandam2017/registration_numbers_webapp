@@ -2,58 +2,62 @@
 
 module.exports = function Routes(RegFact){
 
-    async function home(req, res){
-        try {            
-              res.render("index", {
-                eachRegNo: await RegFact.getReg(),
-              });
-          
-            } catch (error) {
-              console.log(error);
-            }
+    const home = async (req, res) => {
+      try {            
+        res.render("index", {
+          eachRegNo: await RegFact.getReg(),
+        });
+    
+      } catch (error) {
+        console.log(error);
+      }
     }
 
-    async function addReg(req, res){
-        try {
-            var reg = req.body.enteredReg
+    const addReg = async (req, res) => {
+      try {
+        var reg = req.body.enteredReg
 
-            if(reg){
-                console.log(reg);
-           
-                await RegFact.setReg(reg);
-                console.log('done adding')
-            }
-        console.log('before redirect');
-            res.redirect('/');
-            
-        } catch (error) {
-            console.log(error)
+        if(reg){
+            // console.log(reg);
+       
+            await RegFact.setReg(reg);
+            // console.log('done adding')
         }
+        // console.log('before redirect');
+        res.redirect('/');
+        
+    } catch (error) {
+        console.log(error)
+    }
     }
 
-    async function clearDataBase(req, res) {
-        try {
-      
-          await RegFact.resert()
-      
-          res.redirect('/')
-        } catch (error) {
-          console.log(error);
-        }
-      }
+    const townRegistrations = async (req, res) => {
+      try {
+        var checkedTown = req.body.town
+        // console.log('checked town: ' + checkedTown);
 
-      const townRegistrations = async (req, res) => {
-        try {
-          res.render('enteredRegs',{
-            eachRegNo: await RegFact.regsFromTown(),
-
-          })
-          
-        } catch (error) {
-          console.log(error)
-          
-        }
+        let townReg = await RegFact.filter(checkedTown);
+          console.log(townReg);
+        res.render('index', {
+          townReg
+        });
+        
+      } catch (error) {
+        console.log(error)
+        
       }
+    }
+
+    const clearDataBase = async (req, res) => {
+      try {
+    
+        await RegFact.resert()
+    
+        res.redirect('/')
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
     return{
         home,

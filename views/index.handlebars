@@ -19,7 +19,8 @@
                     <span class="storageResert"></span>
                     <span class="successfulMessage successfulColor"></span>
 
-                    <form id="registrationNumberForm" action="/addRegnumber" method="POST" class="clearfix">
+                    <div class="forms-container">
+                        <form id="registrationNumberForm" action="/addRegnumber" method="POST" class="clearfix">
                         <div class="error">
                             {{messages.error}}
                         </div>
@@ -30,7 +31,15 @@
                         
                         <a href="/reset"><button class="button clear btn-mobile-width" type="button" name="deleteData">RESET</button></a>
 
+                        <ul class="printRegNumber">
+                            {{#each eachRegNo}}
+                            <li>{{this.entered_regs}}</li>
+                            {{/each}}  
+                        </ul>
 
+                    </form>
+
+                    <form action="/filterBy" method="POST">
                         <div class="row clearfix">
                             <h3>Filter by a town</h3>
                             <div class="row townName">
@@ -46,18 +55,20 @@
                                 <input type="radio" name="town" class="selectTown" value="CL">
                             </div>
                             <div class="row">
-                                <button class="buttonShow btn-mobile-width" name="show-by-town" type="submit">Show By Town</button>
+                                <button class="buttonShow btn-mobile-width" name="showbytown" type="submit">Show By Town</button>
                                 <button class="buttonShowAll btn-mobile-width" name="show-all" type="button">SHOW ALL</button>
                                 <ul id="selectedTownReg" class="clearfix printEachTown"></ul>
                             </div>
-                            <ul class="printRegNumber">
-                                {{#each eachRegNo}}
-                                <li>{{this.entered_regs}}</li>
-                                {{/each}}  
-                            </ul>
+                            
                         </div>
 
+                        <ul>
+                            {{#each eachRegNo}}
+                            <li>{{this.entered_regs}}</li>
+                            {{/each}}  
+                        </ul>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>

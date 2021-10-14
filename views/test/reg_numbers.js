@@ -5,7 +5,8 @@ const greetPeeps = greet(pool);
 const Pool = pg.Pool;
 
 // which db connection to use
-const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/greetings_app';
+const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/registration_numbers';
+
 
 const pool = new Pool({
   //connection to the address
