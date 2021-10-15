@@ -22,7 +22,7 @@ module.exports = function reg(pool) {
 
 	const getId = async (reg_id) => {
 			try {
-			// console.log(reg_id)
+			console.log('check id' + reg_id)
 			var selectID = await pool.query('SELECT id FROM towns WHERE string_starts_with = $1', [reg_id]);
 			return selectID.rows[0].id;
 			
@@ -56,28 +56,41 @@ module.exports = function reg(pool) {
 	//   add filter function
 	const filter = async (towns) => {
 		let townStartsWith = await getId(towns)
+		console.log('starts string:' + townStartsWith)
 		let getReg = await pool.query('SELECT entered_regs FROM registrations WHERE towns_id = $1', [townStartsWith])
 		// console.log('getREg ' +await getReg.rows)
 		return getReg.rows;
 	}
 
-
-    async function addBtnErrors(plateNumber) {
-		let emptyFieldError = '*Please enter plate number*'
-		let alreadyExistRegError = '*Registration number already exist*'
-		let incorrectPatternError = '*Please enter reg from these towns in this format [CL 123452] OR [CK 123-321] OR [CL 012 658]*'
-		if(plateNumber) {
-			if(pattern1.test(plateNumber) || pattern2.test(plateNumber) || pattern3.test(plateNumber)) {
-				if(regNumberList.includes(plateNumber)) {
-					return alreadyExistRegError;
-				}
-			} else {
-				return incorrectPatternError;
-			}
-		} else {
-			return emptyFieldError;
+	//add show all function
+	const showAll = async () => {
+		try {
+			let allTowns = await pool.query('SELECT entered_regs FROM registrations')
+			return allTowns.rows
+			
+		} catch (error) {
+			return allTowns;
+			
 		}
+
 	}
+
+    // async function addBtnErrors(plateNumber) {
+	// 	let emptyFieldError = '*Please enter plate number*'
+	// 	let alreadyExistRegError = '*Registration number already exist*'
+	// 	let incorrectPatternError = '*Please enter reg from these towns in this format [CL 123452] OR [CK 123-321] OR [CL 012 658]*'
+	// 	if(plateNumber) {
+	// 		if(pattern1.test(plateNumber) || pattern2.test(plateNumber) || pattern3.test(plateNumber)) {
+	// 			if(regNumberList.includes(plateNumber)) {
+	// 				return alreadyExistRegError;
+	// 			}
+	// 		} else {
+	// 			return incorrectPatternError;
+	// 		}
+	// 	} else {
+	// 		return emptyFieldError;
+	// 	}
+	// }
 
 	const resert = async () => {
 		try {
@@ -93,8 +106,9 @@ module.exports = function reg(pool) {
         setReg,
         getReg,
 		resert,
-        addBtnErrors,
+        // addBtnErrors,
 		getId,
-		filter
+		filter,
+		showAll
     }
 }

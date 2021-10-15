@@ -29,9 +29,6 @@ const pool = new Pool({
     ssl: {
         rejectUnauthorized: false
     }
-
-
-
     
 });
 
@@ -44,7 +41,7 @@ const RoutesLogic = Routes(RegFact);
 
 //initialise session middleware - flash-express depends
 app.use(session({
-    secret: 'this is my session string',
+    secret: 'this is my session string for registration_numbers_webapp',
     resave: false,
     saveUninitialized: true
   }));
@@ -68,6 +65,7 @@ app.post('/addRegnumber', RoutesLogic.addReg);
 app.get('/reset', RoutesLogic.clearDataBase);
 //add post route to get the value of the check button, checked by the user
 app.post('/filterBy', RoutesLogic.townRegistrations);
+app .get('/showall', );
 
 
 //make the port number to be configurable

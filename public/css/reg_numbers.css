@@ -14,11 +14,15 @@ form .enteredReg{
 
 }
 
+.container{
+    width: 90%;
+}
+
 .inner_container{
     margin: 50px 0;
 }
 
-.successfulColor{
+.successfulMessage{
     color: green;
 }
 
@@ -61,7 +65,7 @@ ul li{
     display: flex;
 }
 
-span{
+.error{
     color: red;
 }
 

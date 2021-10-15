@@ -9,5 +9,19 @@
   <body>
     <div class="container">
       {{{body}}}
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function(){
+          let notSuccessful = document.querySelector('.error');
+          let successful = document.querySelector('.successfulMessage');
+
+          if(notSuccessful || successful){
+            setTimeout(function(){
+              notSuccessful.innerHTML = '';
+              successful.innerHTML = '';
+            }, 2000);
+          }
+        })
+      </script>
   </body>
 </html>

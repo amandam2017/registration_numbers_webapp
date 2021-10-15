@@ -17,7 +17,9 @@
                     <span class="regAlreadyExist"></span>
                     <span class="unMatchPattern"></span>
                     <span class="storageResert"></span>
-                    <span class="successfulMessage successfulColor"></span>
+                    <span class="successfulMessage">
+                        {{messages.successfulMessage}}
+                    </span>
 
                     <div class="forms-container">
                         <form id="registrationNumberForm" action="/addRegnumber" method="POST" class="clearfix">
@@ -31,6 +33,30 @@
                         
                         <a href="/reset"><button class="button clear btn-mobile-width" type="button" name="deleteData">RESET</button></a>
 
+                    </form>
+
+                    <form action="/filterBy" method="POST">
+                        <div class="row clearfix">
+                            <h3>Filter by a town</h3>
+                            <div class="row townName">
+                                <label>Cape Town CA</label>
+                                <input type="radio" name="town" class="selectTown" value="CA">
+                            </div>
+                            <div class="row townName">
+                                <label>Malmesbury CK</label>
+                                <input type="radio" name="town" class="selectTown" value="CK">
+                            </div>
+                            <div class="row townName">
+                                <label>Stellenbosch CL</label>
+                                <input type="radio" name="town" class="selectTown" value="CL">
+                            </div>
+                            <div class="row">
+                                <button class="buttonShow btn-mobile-width" name="showbytown" type="submit">Show By Town</button>
+                                <button class="buttonShowAll btn-mobile-width" name="show-all" type="button">SHOW ALL</button>
+                                <ul id="selectedTownReg" class="clearfix printEachTown"></ul>
+                            </div>
+                            
+                        </div>
                         <ul class="printRegNumber">
                             {{#each eachRegNo}}
                             <li>{{this.entered_regs}}</li>
@@ -42,32 +68,6 @@
                             <li>{{this.entered_regs}}</li>
                             {{/each}}  
                         </ul>
-
-                    </form>
-
-                    <form action="/filterBy" method="POST">
-                        <div class="row clearfix">
-                            <h3>Filter by a town</h3>
-                            <div class="row townName">
-                                <label>Cape Town</label>
-                                <input type="radio" name="town" class="selectTown" value="CA">
-                            </div>
-                            <div class="row townName">
-                                <label>Malmesbury</label>
-                                <input type="radio" name="town" class="selectTown" value="CK">
-                            </div>
-                            <div class="row townName">
-                                <label>Stellenbosch</label>
-                                <input type="radio" name="town" class="selectTown" value="CL">
-                            </div>
-                            <div class="row">
-                                <button class="buttonShow btn-mobile-width" name="showbytown" type="submit">Show By Town</button>
-                                <button class="buttonShowAll btn-mobile-width" name="show-all" type="button">SHOW ALL</button>
-                                <ul id="selectedTownReg" class="clearfix printEachTown"></ul>
-                            </div>
-                            
-                        </div>
-
                         
                     </form>
                     </div>
@@ -77,6 +77,5 @@
 
 
     </div>
-
 </body>
 </html>

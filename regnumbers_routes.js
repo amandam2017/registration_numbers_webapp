@@ -2,6 +2,10 @@
 
 module.exports = function Routes(RegFact){
 
+  let pattern1 = /^((CA|CK|CL)\s([0-9]){6})$/;
+  let pattern2 = /^((CA|CK|CL)\s\d{3}\s\d{3})$/;
+  let pattern3 = /^((CA|CK|CL)\s\d{3}\-\d{3})$/;
+
     const home = async (req, res) => {
       try {            
         res.render("index", {
@@ -18,10 +22,21 @@ module.exports = function Routes(RegFact){
         var reg = req.body.enteredReg
 
         if(reg){
-            // console.log(reg);
-       
+          if(reg && pattern1.test(reg) || pattern2.test(reg) || pattern3.test(reg)){
+            console.log(reg);
+            req.flash('successfulMessage', '*Successfully added registration*');
+
             await RegFact.setReg(reg);
-            // console.log('done adding')
+
+            console.log('done adding');
+
+          }else{
+            req.flash('error', '*Please enter a valid registration format: CA 125-652 CL 201 201 CK 125254*')
+          }
+            
+        }else{
+          req.flash('error', "*Please enter a registration number*")
+
         }
         // console.log('before redirect');
         res.redirect('/');
@@ -48,6 +63,15 @@ module.exports = function Routes(RegFact){
       }
     }
 
+    const showAllRegs = async (req, res) => {
+      try {
+
+        
+      } catch (error) {
+        
+      }
+    }
+
     const clearDataBase = async (req, res) => {
       try {
     
@@ -63,6 +87,7 @@ module.exports = function Routes(RegFact){
         home,
         addReg,
         clearDataBase,
-        townRegistrations
+        townRegistrations,
+        showAllRegs
     }
 }
