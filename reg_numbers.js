@@ -22,9 +22,10 @@ module.exports = function reg(pool) {
 
 	const getId = async (reg_id) => {
 			try {
-			console.log('check id' + reg_id)
+			// console.log('check id' + reg_id)
 			var selectID = await pool.query('SELECT id FROM towns WHERE string_starts_with = $1', [reg_id]);
 			return selectID.rows[0].id;
+
 			
 		} catch (error) {
 			console.log(error)

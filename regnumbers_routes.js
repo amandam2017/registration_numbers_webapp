@@ -19,6 +19,9 @@ module.exports = function Routes(RegFact){
 
     const addReg = async (req, res) => {
       try {
+        let emptyFieldError = '*lease enter a registration number*'
+        let alreadyExistRegError = '*Registration number already exist*'
+        let incorrectRegFormat = '*Please enter reg from these towns in this format [CL 123452] OR [CK 123-321] OR [CL 012 658]*'
         var reg = req.body.enteredReg
 
         if(reg){
@@ -31,11 +34,11 @@ module.exports = function Routes(RegFact){
             console.log('done adding');
 
           }else{
-            req.flash('error', '*Please enter a valid registration format: CA 125-652 CL 201 201 CK 125254*')
+            req.flash('error', incorrectRegFormat)
           }
             
         }else{
-          req.flash('error', "*Please enter a registration number*")
+          req.flash('error', emptyFieldError);
 
         }
         // console.log('before redirect');
@@ -49,10 +52,8 @@ module.exports = function Routes(RegFact){
     const townRegistrations = async (req, res) => {
       try {
         var checkedTown = req.body.town
-        // console.log('checked town: ' + checkedTown);
 
         let townReg = await RegFact.filter(checkedTown);
-          console.log(townReg);
         res.render('index', {
           townReg
         });
