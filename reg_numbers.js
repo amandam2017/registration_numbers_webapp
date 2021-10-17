@@ -76,23 +76,6 @@ module.exports = function reg(pool) {
 
 	}
 
-    // async function addBtnErrors(plateNumber) {
-	// 	let emptyFieldError = '*Please enter plate number*'
-	// 	let alreadyExistRegError = '*Registration number already exist*'
-	// 	let incorrectPatternError = '*Please enter reg from these towns in this format [CL 123452] OR [CK 123-321] OR [CL 012 658]*'
-	// 	if(plateNumber) {
-	// 		if(pattern1.test(plateNumber) || pattern2.test(plateNumber) || pattern3.test(plateNumber)) {
-	// 			if(regNumberList.includes(plateNumber)) {
-	// 				return alreadyExistRegError;
-	// 			}
-	// 		} else {
-	// 			return incorrectPatternError;
-	// 		}
-	// 	} else {
-	// 		return emptyFieldError;
-	// 	}
-	// }
-
 	const resert = async () => {
 		try {
             let clearData = await pool.query('DELETE FROM registrations');

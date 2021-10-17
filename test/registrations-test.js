@@ -25,16 +25,10 @@ describe('registration_numbers_webapp', function (){
     describe('testing add function', async function (){
         it('should be able to set and get the entered unique registration number CA 12547, CL 12345 and CK 12345', async function (){
             let Regs = reg(pool);
-            
-            // await Regs.setReg('CL 123456');
+
             await Regs.setReg('CA 123456');
-            // await Regs.setReg('CK 123-452');
 
-            // console.log(Regs.getReg());
-            // assert.deepEqual(['CA 123-456', 'CL 123456', 'CK 123 452'], await Regs.getReg());
-            assert.equal([{entered_regs:'CA 123456'}], await Regs.getReg());
-
-            // assert.deepEqual([{greeted_names:"Maarman"}], await salute.getName());
+            assert.deepEqual([{entered_regs:'CA 123456'}], await Regs.getReg());
 
         })
 
@@ -42,25 +36,27 @@ describe('registration_numbers_webapp', function (){
             let Regs = reg(pool);
 
             await Regs.setReg('CA 254782');
-            assert.equal('CA 254782', await Regs.getReg());
+            assert.deepEqual([{entered_regs:'CA 254782'}], await Regs.getReg());
         });
         it('should be able to add a registration from Malmesbury successfully', async function() {
             let Regs = reg(pool);
 
             await Regs.setReg('CK 254782');
-            assert.equal('CK 254782', await Regs.getReg());
+            assert.deepEqual([{entered_regs:'CK 254782'}], await Regs.getReg());
         });
         it('should be able to add a registration from Stellenbosch successfully', async function() {
             let Regs = reg(pool);
 
             await Regs.setReg('CL 254782');
-            assert.equal('CL 254782', await Regs.getReg());
+            assert.deepEqual([{entered_regs:'CL 254782'}], await Regs.getReg());
+
         });
         it('should be able to add a registration number of a lower case and display it as Uppercase', async function() {
             let Regs = reg(pool);
 
             await Regs.setReg('ca 123456');
-            assert.equal('CA 123456', await Regs.getReg());
+            assert.deepEqual([{entered_regs:'CA 123456'}], await Regs.getReg());
+
         });
 
     })
