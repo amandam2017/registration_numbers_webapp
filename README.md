@@ -1,6 +1,7 @@
 # registration_numbers_webapp
 
 In this web page, you will be able to add and display added registration numbers on the browser. You will  be able to store added registration numbers on the database.
+You will also be able to filter registrations by town.
 
 I have used a postgreSQL database to store the data - in this case I am using two tables. 
 Table 1 - to store town names and their town license mark (CA, CK, CL).
