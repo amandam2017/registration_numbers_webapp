@@ -2,13 +2,14 @@
 
 module.exports = function reg(pool) {
 
-	const regqueries = async (regNum) => {
+	const regqueries = async (toUppReg) => {
+		let regNum = toUppReg.toUpperCase();
 
-		let pattern1 = /^((CA|CK|CL)\s([0-9]){6})$/;
-		let pattern2 = /^((CA|CK|CL)\s\d{3}\s\d{3})$/;
-		let pattern3 = /^((CA|CK|CL)\s\d{3}\-\d{3})$/;
+		// let pattern1 = /^((CA|CK|CL)\s([0-9]){6})$/;
+		// let pattern2 = /^((CA|CK|CL)\s\d{3}\s\d{3})$/;
+		// let pattern3 = /^((CA|CK|CL)\s\d{3}\-\d{3})$/;
         
-        if(regNum && pattern1.test(regNum) || pattern2.test(regNum) || pattern3.test(regNum)){
+        // if(regNum && pattern1.test(regNum) || pattern2.test(regNum) || pattern3.test(regNum)){
             let checkReg = await pool.query('SELECT entered_regs FROM registrations WHERE entered_regs = $1', [regNum]);
 			//adding substringt=to look for the first 2 letter from a town
 			let substring = regNum.substring(0, 2)
@@ -17,12 +18,11 @@ module.exports = function reg(pool) {
             if(checkReg.rowCount === 0) { //checking if entered reg does not exist and the add it
                 const INSERT_QUERY = await pool.query('INSERT INTO registrations (entered_regs, towns_id) VALUES ($1,$2)', [regNum, idees]);
             }
-        }
+        // }
 	}
 
 	const getId = async (reg_id) => {
 			try {
-			// console.log('check id' + reg_id)
 			var selectID = await pool.query('SELECT id FROM towns WHERE string_starts_with = $1', [reg_id]);
 			return selectID.rows[0].id;
 
@@ -35,7 +35,6 @@ module.exports = function reg(pool) {
 
 	const setReg = async (plateNumber) => {
         plateNumber = plateNumber.toUpperCase();
-
 		await regqueries(plateNumber)
  
 	}
@@ -49,29 +48,36 @@ module.exports = function reg(pool) {
 			console.log(error)
 			
 		}
-
 		return regNumberList;
 	  }
 
+	  //add list of regs
+	  const list = async (newReg) => {
+		try {
+			let regList = await pool.query('SELECT entered_regs FROM registrations WHERE entered_regs = $1', [newReg])
+			return regList.rows;
+			
+		} catch (error) {
+			console.log(error)
+			
+		}
+		return regList;
+	  }
 
-	//   add filter function
+
 	const filter = async (towns) => {
 		let townStartsWith = await getId(towns)
 		console.log('starts string:' + townStartsWith)
 		let getReg = await pool.query('SELECT entered_regs FROM registrations WHERE towns_id = $1', [townStartsWith])
-		// console.log('getREg ' +await getReg.rows)
 		return getReg.rows;
 	}
 
-	//add show all function
 	const showAll = async () => {
 		try {
 			let allTowns = await pool.query('SELECT entered_regs FROM registrations')
 			return allTowns.rows
 			
-		} catch (error) {
-			return allTowns;
-			
+		} catch (error) {			
 		}
 
 	}
@@ -89,10 +95,10 @@ module.exports = function reg(pool) {
         regqueries,
         setReg,
         getReg,
-		resert,
-        // addBtnErrors,
 		getId,
 		filter,
-		showAll
+		showAll,
+		resert,
+		list
     }
 }

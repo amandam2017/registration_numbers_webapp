@@ -6,6 +6,9 @@ module.exports = function Routes(RegFact){
   let pattern2 = /^((CA|CK|CL)\s\d{3}\s\d{3})$/;
   let pattern3 = /^((CA|CK|CL)\s\d{3}\-\d{3})$/;
 
+  let regList = [];
+
+
     const home = async (req, res) => {
       try {            
         res.render("index", {
@@ -19,13 +22,17 @@ module.exports = function Routes(RegFact){
 
     const addReg = async (req, res) => {
       try {
-        let emptyFieldError = '*lease enter a registration number*'
+        let emptyFieldError = '*Please enter a registration number*'
         let alreadyExistRegError = '*Registration number already exist*'
         let incorrectRegFormat = '*Please enter reg from these towns in this format [CL 123452] OR [CK 123-321] OR [CL 012 658]*'
         var reg = req.body.enteredReg
 
+        let myList = await RegFact.list(reg);
+
         if(reg){
           if(reg && pattern1.test(reg) || pattern2.test(reg) || pattern3.test(reg)){
+          if(myList == 0) {
+          
             console.log(reg);
             req.flash('successfulMessage', '*Successfully added registration*');
 
@@ -34,7 +41,10 @@ module.exports = function Routes(RegFact){
             console.log('done adding');
 
           }else{
-            req.flash('error', incorrectRegFormat)
+            req.flash('error', alreadyExistRegError)
+          }
+          }else{
+            req.flash('error', incorrectRegFormat);
           }
             
         }else{
@@ -54,9 +64,15 @@ module.exports = function Routes(RegFact){
         var checkedTown = req.body.town
 
         let townReg = await RegFact.filter(checkedTown);
-        res.render('index', {
+        if(checkedTown){
+          res.render('index', {
           townReg
         });
+      }else{
+          req.flash('error', '*Please select a town*'); 
+          
+          
+        } 
         
       } catch (error) {
         console.log(error)
@@ -64,9 +80,25 @@ module.exports = function Routes(RegFact){
       }
     }
 
+    async function addRegsOnUrl(req, res) {
+      try {
+        let regs = req.params.entered_regs;
+        res.render('enteredRegs', {
+          regs,
+        })
+    
+      } catch (error) {
+        console.log(error);
+      }
+    
+    }
+
     const showAllRegs = async (req, res) => {
       try {
+        res.render('index', {
+          eachRegNo: await RegFact.showAll()
 
+        })
         
       } catch (error) {
         
@@ -75,8 +107,10 @@ module.exports = function Routes(RegFact){
 
     const clearDataBase = async (req, res) => {
       try {
-    
+        
         await RegFact.resert()
+        req.flash('successfulMessage', 'Successfully cleared the database');
+
     
         res.redirect('/')
       } catch (error) {
@@ -89,6 +123,7 @@ module.exports = function Routes(RegFact){
         addReg,
         clearDataBase,
         townRegistrations,
-        showAllRegs
+        showAllRegs,
+        addRegsOnUrl,
     }
 }

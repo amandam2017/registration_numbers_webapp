@@ -4,26 +4,20 @@
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="css/skeleton.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reg_numbers.css">
   </head>
   <body>
-
     <div class="container">
         <div class="inner_container">
             <div class="row">
                 <div class="box shadow">
                     <h3>Registration Numbers</h3>
-
-                    <span class="regNotEntered"></span>
-                    <span class="regAlreadyExist"></span>
-                    <span class="unMatchPattern"></span>
-                    <span class="storageResert"></span>
-                    <span class="successfulMessage">
-                        {{messages.successfulMessage}}
-                    </span>
+                    <p>Please only enter  first two letters of a Registration Number in uppercase e.g: 
+                    </p>
+                    <p>CA 245852 OR CL 245852 OR CL 245852</p>
 
                     <div class="forms-container">
-                        <form id="registrationNumberForm" action="/addRegnumber" method="POST" class="clearfix">
+                        <form action="/addRegnumber" method="POST" class="clearfix">
                         <div class="error">
                             {{messages.error}}
                         </div>
@@ -53,24 +47,21 @@
                             </div>
                             <div class="row">
                                 <button class="buttonShow btn-mobile-width" name="showbytown" type="submit">Show By Town</button>
-                                <button class="buttonShowAll btn-mobile-width" name="show-all" type="button">SHOW ALL</button>
                                 <ul id="selectedTownReg" class="clearfix printEachTown"></ul>
                             </div>
                             
                         </div>
-                        <ul class="printRegNumber">
-                            {{#each eachRegNo}}
-                            <li>{{this.entered_regs}}</li>
-                            {{/each}}  
-                        </ul>
-
-                        <ul>
-                            {{#each townReg}}
-                            <li>{{this.entered_regs}}</li>
-                            {{/each}}  
-                        </ul>
                         
                     </form>
+                    <form action="/showAll" method="POST">
+                        <button class="buttonShowAll btn-mobile-width" name="showall" type="submit">SHOW ALL</button>
+
+                    </form>
+                  
+                    <ul>
+                        <li>{{regs}}</li>       
+                    </ul>
+
                     </div>
                 </div>
             </div>
@@ -78,6 +69,5 @@
 
 
     </div>
-
 </body>
 </html>
