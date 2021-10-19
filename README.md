@@ -1,5 +1,7 @@
 # registration_numbers_webapp
 
+[![Build Status](https://app.travis-ci.com/amandam2017/registration_numbers_webapp.svg?branch=master)](https://app.travis-ci.com/amandam2017/registration_numbers_webapp)
+
 In this web page, you will be able to add and display added registration numbers on the browser. You will  be able to store added registration numbers on the database.
 You will also be able to filter registrations by town.
 
