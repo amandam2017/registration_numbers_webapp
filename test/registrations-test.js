@@ -63,7 +63,21 @@ describe('registration_numbers_webapp', function (){
             let Regs = reg(pool);
 
             await Regs.setReg('CL 254782');
-            assert.equal('', await Regs.resert());
+            await Regs.setReg('CA 254782');
+            await Regs.setReg('CK 254782');
+
+            assert.equal(undefined, await Regs.resert());
+
+        });
+
+        it('should be able to display all registration numbers after show all button is clicked', async function() {
+            let Regs = reg(pool);
+
+            await Regs.setReg('CA 246891');
+            await Regs.setReg('CL 123456');
+            await Regs.setReg('CK 123456');
+
+            assert.deepEqual([{entered_regs:'CA 246891'},{entered_regs:'CL 123456'},{entered_regs:'CK 123456'}], await Regs.showAll());
 
         });
 

@@ -1,0 +1,14 @@
+language: node_js
+
+node_js:
+  - "v12.18.3"
+
+env:
+  - DATABASE_URL=postgresql://postgres@localhost:5432/registration_tests
+
+before_script:
+  - psql -c 'create database  registration_tests' -U postgres
+  - psql -U postgres -d registration_tests -a -f tb.sql
+
+services:
+  - postgresql  
