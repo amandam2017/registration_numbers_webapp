@@ -59,6 +59,14 @@ describe('registration_numbers_webapp', function (){
 
         });
 
+        it('should be able to clear the database after resert button is clicked', async function() {
+            let Regs = reg(pool);
+
+            await Regs.setReg('CL 254782');
+            assert.equal('', await Regs.resert());
+
+        });
+
     })
     
 })
