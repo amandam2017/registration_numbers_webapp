@@ -1,86 +1,85 @@
-const assert = require("assert");
-const reg = require("../reg_numbers");
-const pg = require("pg");
+const assert = require('assert');
+const reg = require('../reg_numbers');
+const pg = require('pg');
 
 const Pool = pg.Pool;
 
-const connectionString =
-  process.env.DATABASE_URL ||
-  "postgresql://codex:pg123@localhost:5432/registration_tests";
+const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/registration_tests';
+
 
 const pool = new Pool({
-  connectionString,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
+    connectionString,
+    ssl: {
+        rejectUnauthorized: false
+    }
+})
 
 let Regs = reg(pool);
 
-describe("registration_numbers_webapp", function () {
-  beforeEach(async function () {
-    await pool.query("delete from registrations");
-  });
-
-  describe("testing add function", async function () {
-    it("should be able to set and get the entered unique registration number CA 12547, CL 12345 and CK 12345", async function () {
-      let Regs = reg(pool);
-
-      await Regs.setReg("CA 123456");
-
-      assert.deepEqual([{ entered_regs: "CA 123456" }], await Regs.getReg());
+describe('registration_numbers_webapp', function (){
+    beforeEach(async function (){
+        await pool.query('delete from registrations');
     });
 
-    it("should be able to add a registration from Cape Town successfully", async function () {
-      let Regs = reg(pool);
+    describe('testing add function', async function (){
+        it('should be able to set and get the entered unique registration number CA 12547, CL 12345 and CK 12345', async function (){
+            let Regs = reg(pool);
 
-      await Regs.setReg("CA 254782");
-      assert.deepEqual([{ entered_regs: "CA 254782" }], await Regs.getReg());
-    });
-    it("should be able to add a registration from Malmesbury successfully", async function () {
-      let Regs = reg(pool);
+            await Regs.setReg('CA 123456');
 
-      await Regs.setReg("CK 254782");
-      assert.deepEqual([{ entered_regs: "CK 254782" }], await Regs.getReg());
-    });
-    it("should be able to add a registration from Stellenbosch successfully", async function () {
-      let Regs = reg(pool);
+            assert.deepEqual([{entered_regs:'CA 123456'}], await Regs.getReg());
 
-      await Regs.setReg("CL 254782");
-      assert.deepEqual([{ entered_regs: "CL 254782" }], await Regs.getReg());
-    });
-    it("should be able to add a registration number of a lower case and display it as Uppercase", async function () {
-      let Regs = reg(pool);
+        })
 
-      await Regs.setReg("ca 123456");
-      assert.deepEqual([{ entered_regs: "CA 123456" }], await Regs.getReg());
-    });
+        it('should be able to add a registration from Cape Town successfully', async function() {
+            let Regs = reg(pool);
 
-    it("should be able to clear the database after resert button is clicked", async function () {
-      let Regs = reg(pool);
+            await Regs.setReg('CA 254782');
+            assert.deepEqual([{entered_regs:'CA 254782'}], await Regs.getReg());
+        });
+        it('should be able to add a registration from Malmesbury successfully', async function() {
+            let Regs = reg(pool);
 
-      await Regs.setReg("CL 254782");
-      await Regs.setReg("CA 254782");
-      await Regs.setReg("CK 254782");
+            await Regs.setReg('CK 254782');
+            assert.deepEqual([{entered_regs:'CK 254782'}], await Regs.getReg());
+        });
+        it('should be able to add a registration from Stellenbosch successfully', async function() {
+            let Regs = reg(pool);
 
-      assert.equal(undefined, await Regs.resert());
-    });
+            await Regs.setReg('CL 254782');
+            assert.deepEqual([{entered_regs:'CL 254782'}], await Regs.getReg());
 
-    it("should be able to display all registration numbers after show all button is clicked", async function () {
-      let Regs = reg(pool);
+        });
+        it('should be able to add a registration number of a lower case and display it as Uppercase', async function() {
+            let Regs = reg(pool);
 
-      await Regs.setReg("CA 246891");
-      await Regs.setReg("CL 123456");
-      await Regs.setReg("CK 123456");
+            await Regs.setReg('ca 123456');
+            assert.deepEqual([{entered_regs:'CA 123456'}], await Regs.getReg());
 
-      assert.deepEqual(
-        [
-          { entered_regs: "CA 246891" },
-          { entered_regs: "CL 123456" },
-          { entered_regs: "CK 123456" },
-        ],
-        await Regs.showAll()
-      );
-    });
-  });
-});
+        });
+
+        it('should be able to clear the database after resert button is clicked', async function() {
+            let Regs = reg(pool);
+
+            await Regs.setReg('CL 254782');
+            await Regs.setReg('CA 254782');
+            await Regs.setReg('CK 254782');
+
+            assert.equal(undefined, await Regs.resert());
+
+        });
+
+        it('should be able to display all registration numbers after show all button is clicked', async function() {
+            let Regs = reg(pool);
+
+            await Regs.setReg('CA 246891');
+            await Regs.setReg('CL 123456');
+            await Regs.setReg('CK 123456');
+
+            assert.deepEqual([{entered_regs:'CA 246891'},{entered_regs:'CL 123456'},{entered_regs:'CK 123456'}], await Regs.showAll());
+
+        });
+
+    })
+    
+})
