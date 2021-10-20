@@ -28,7 +28,13 @@ form .enteredReg{
     margin: 50px 0;
 }
 
+.error{
+    font-size: 20px;
+    color: red;
+}
+
 .successfulMessage{
+    font-size: 20px;
     color: green;
 }
 
@@ -69,10 +75,6 @@ ul li{
     float: left;
     padding: 10px;
     display: flex;
-}
-
-.error{
-    color: red;
 }
 
 .clearfix::after {

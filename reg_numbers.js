@@ -12,19 +12,13 @@ module.exports = function reg(pool) {
     console.log(substring);
     var idees = await getId(substring);
     if (checkReg.rowCount === 0) {
-      const INSERT_QUERY = await pool.query(
-        'INSERT INTO registrations (entered_regs, towns_id) VALUES ($1,$2)',
-        [regNum, idees]
-      );
+      const INSERT_QUERY = await pool.query('INSERT INTO registrations (entered_regs, towns_id) VALUES ($1,$2)',[regNum, idees]);
     }
   };
 
   const getId = async (reg_id) => {
     try {
-      var selectID = await pool.query(
-        'SELECT id FROM towns WHERE string_starts_with = $1',
-        [reg_id]
-      );
+      var selectID = await pool.query('SELECT id FROM towns WHERE string_starts_with = $1',[reg_id]);
       return selectID.rows[0].id;
     } catch (error) {
       console.log(error);
