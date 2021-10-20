@@ -1,9 +1,9 @@
 "use strict";
 
 module.exports = function Routes(RegFact) {
-  let pattern1 = /^((CA|CK|CL)\s([0-9]){6})$/;
-  let pattern2 = /^((CA|CK|CL)\s\d{3}\s\d{3})$/;
-  let pattern3 = /^((CA|CK|CL)\s\d{3}\-\d{3})$/;
+  let pattern1 = /^((CA|CK|CL)\s([0-9]){6})$/i;
+  let pattern2 = /^((CA|CK|CL)\s\d{3}\s\d{3})$/i;
+  let pattern3 = /^((CA|CK|CL)\s\d{3}\-\d{3})$/i;
 
   const home = async (req, res) => {
     try {
@@ -19,18 +19,13 @@ module.exports = function Routes(RegFact) {
     try {
       let emptyFieldError = "*Please enter a registration number*";
       let alreadyExistRegError = "*Registration number already exist*";
-      let incorrectRegFormat =
-        "*Please enter reg from these towns in this format [CL 123452] OR [CK 123-321] OR [CL 012 658]*";
-      var reg = req.body.enteredReg;
+      let incorrectRegFormat ="*Please enter reg from these towns in this format [CL 123452] OR [CK 123-321] OR [CL 012 658]*";
+      let reg = req.body.enteredReg;
 
       let myList = await RegFact.list(reg);
 
       if (reg) {
-        if (
-          (reg && pattern1.test(reg)) ||
-          pattern2.test(reg) ||
-          pattern3.test(reg)
-        ) {
+        if ((reg && pattern1.test(reg)) ||pattern2.test(reg) ||pattern3.test(reg)) {
           if (myList == 0) {
             console.log(reg);
             req.flash("successfulMessage", "*Successfully added registration*");

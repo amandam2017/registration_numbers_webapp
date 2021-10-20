@@ -38,6 +38,7 @@ module.exports = function reg(pool) {
 
   const getReg = async () => {
     try {
+      
       let regNumberList = await pool.query(
         'SELECT entered_regs FROM registrations'
       );
