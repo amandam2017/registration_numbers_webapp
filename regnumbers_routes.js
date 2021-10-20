@@ -88,7 +88,7 @@ module.exports = function Routes(RegFact) {
   const clearDataBase = async (req, res) => {
     try {
       await RegFact.resert();
-      req.flash("successfulMessage", "Successfully cleared the database");
+      req.flash("successfulMessage", "*Successfully cleared the database*");
 
       res.redirect("/");
     } catch (error) {

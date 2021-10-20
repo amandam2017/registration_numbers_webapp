@@ -13,6 +13,28 @@ p{
     text-align: center;
 }
 
+label{
+    font-size: 20px;
+}
+
+.center-content{
+    width: 65%;
+    margin: auto;
+}
+
+.buttonShowAll, .buttonShow{
+    width: 350px;
+}
+
+.btn-container{
+    width: 45%;
+    margin: 0 auto;
+}
+
+.btn-container button, .btn-container a{
+    margin-left: 4em;
+}
+
 form .enteredReg{
     width: 100%;
     border: 1px solid #1b8c90;

@@ -11,33 +11,39 @@
         <div class="inner_container">
             <div class="row">
                 <div class="box shadow">
-                    <h3>Registration Numbers</h3>
-                    <p>Please enter registration numbers as below: 
-                    </p>
-                    <p>CA 245852 OR CL 245852 OR CL 245852</p>
 
-                    <span class="successfulMessage">
-                        {{messages.successfulMessage}}
-                    </span>
+                    
 
                     <div class="forms-container">
                         <form action="/addRegnumber" method="POST" class="clearfix">
-                        <div class="error">
+
+                        <h3>Registration Numbers</h3>
+                    <p>Please enter registration numbers as below: 
+                    </p>
+                    <p>CA 245852 OR CK 245852 OR CL 245852</p>
+                    <div class="error">
                             {{messages.error}}
                         </div>
-                        <span class="errorMessageOutput"></span>
+                        <span class="successfulMessage">
+                        {{messages.successfulMessage}}
+                    </span>
                         <input class="enteredReg" name="enteredReg" type="text" placeholder="CA 245852" value=""
                          />
-                        <button class="addBtn btnStyles btn-mobile-width" name="add" type="submit">ADD</button>
-                        
-                        <a href="/reset"><button class="button clear btn-mobile-width" type="button" name="deleteData">RESET</button></a>
+                        <div class="addbtns">
+                            <div class="btn-container">
+                                <button class="addBtn btnStyles btn-mobile-width" name="add" type="submit">ADD</button>
+                                <a href="/reset"><button class="button clear btn-mobile-width" type="button" name="deleteData">RESET</button></a>
+                            </div>
+
+                        </div>
 
                     </form>
 
                     <form action="/filterBy" method="POST">
                         <div class="row clearfix">
                             <h3>Filter by a town</h3>
-                            <div class="row townName">
+                             <div class="filter-content center-content">
+                                 <div class="row townName">
                                 <label>Cape Town CA</label>
                                 <input type="radio" name="town" class="selectTown" value="CA">
                             </div>
@@ -49,19 +55,23 @@
                                 <label>Stellenbosch CL</label>
                                 <input type="radio" name="town" class="selectTown" value="CL">
                             </div>
-                            <div class="row">
-                                <button class="buttonShow btn-mobile-width" name="showbytown" type="submit">Show By Town</button>
-                                <ul id="selectedTownReg" class="clearfix printEachTown"></ul>
-                            </div>
-                            
+
+                             </div>   
+
+    
+                        </div>
+                        <div class="row">
+                        <div class="btn-container">
+                            <button class="buttonShow" name="showbytown" type="submit">Show By Town</button>
+                        </div>
                         </div>
                         
                     </form>
-                    <form action="/showAll" method="POST">
-                        <button class="buttonShowAll btn-mobile-width" name="showall" type="submit">SHOW ALL</button>
+                    <form action="/showAll" method="POST" class="btn-container">
+                        <button class="buttonShowAll" name="showall" type="submit">SHOW ALL</button>
 
                     </form>
-                    <ul class="printRegNumber">
+                    <ul class="printRegNumber center-content">
                             {{#each eachRegNo}}
                             <li>{{this.entered_regs}}</li>
                             {{/each}}  
