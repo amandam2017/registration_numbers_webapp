@@ -20,6 +20,7 @@ module.exports = function Routes(RegFact) {
       let emptyFieldError = "*Please enter a registration number*";
       let alreadyExistRegError = "*Registration number already exist*";
       let incorrectRegFormat ="*Please enter reg from these towns in this format [CL 123452] OR [CK 123-321] OR [CL 012 658]*";
+      
       let reg = req.body.enteredReg;
 
       let myList = await RegFact.list(reg);
